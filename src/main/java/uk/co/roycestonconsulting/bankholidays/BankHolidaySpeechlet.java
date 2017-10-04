@@ -1,4 +1,4 @@
-package com.msoft.bankholidays;
+package uk.co.roycestonconsulting.bankholidays;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

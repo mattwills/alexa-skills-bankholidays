@@ -1,4 +1,4 @@
-package com.msoft.bankholidays;
+package uk.co.roycestonconsulting.bankholidays;
 
 import com.amazon.speech.json.SpeechletRequestEnvelope;
 import com.amazon.speech.speechlet.IntentRequest;

@@ -1,4 +1,4 @@
-package com.msoft.bankholidays;
+package uk.co.roycestonconsulting.bankholidays;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;

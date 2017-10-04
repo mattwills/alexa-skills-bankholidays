@@ -1,4 +1,4 @@
-package com.msoft.bankholidays;
+package uk.co.roycestonconsulting.bankholidays;
 
 import java.util.HashSet;
 import java.util.Set;
