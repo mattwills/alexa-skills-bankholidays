@@ -1,0 +1,24 @@
+{
+  "intents": [
+    {
+      "name": "AMAZON.CancelIntent",
+      "samples": []
+    },
+    {
+      "name": "AMAZON.HelpIntent",
+      "samples": []
+    },
+    {
+      "name": "AMAZON.StopIntent",
+      "samples": []
+    },
+    {
+      "name": "nextBankHoliday",
+      "samples": [
+        "When is the next bank holiday",
+        "Is there a bank holiday soon"
+      ],
+      "slots": []
+    }
+  ]
+}
