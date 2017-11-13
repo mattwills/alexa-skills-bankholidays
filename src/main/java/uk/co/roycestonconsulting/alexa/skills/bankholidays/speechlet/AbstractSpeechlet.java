@@ -1,4 +1,4 @@
-package uk.co.roycestonconsulting.bankholidays;
+package uk.co.roycestonconsulting.alexa.skills.bankholidays.speechlet;
 
 import com.amazon.speech.json.SpeechletRequestEnvelope;
 import com.amazon.speech.speechlet.IntentRequest;

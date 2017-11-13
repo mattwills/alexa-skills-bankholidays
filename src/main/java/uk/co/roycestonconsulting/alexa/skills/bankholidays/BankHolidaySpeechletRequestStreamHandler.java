@@ -1,9 +1,10 @@
-package uk.co.roycestonconsulting.bankholidays;
+package uk.co.roycestonconsulting.alexa.skills.bankholidays;
 
 import java.util.HashSet;
 import java.util.Set;
 import com.amazon.speech.speechlet.lambda.SpeechletRequestStreamHandler;
 import com.amazonaws.services.lambda.runtime.RequestStreamHandler;
+import uk.co.roycestonconsulting.alexa.skills.bankholidays.speechlet.BankHolidaySpeechlet;
 
 /**
  * Main {@link RequestStreamHandler} for the Bank Holiday Alexa Skill.

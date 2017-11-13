@@ -1,0 +1,150 @@
+{
+  "languageModel": {
+    "types": [
+      {
+        "name": "BANK_HOLIDAY",
+        "values": [
+          {
+            "id": "1",
+            "name": {
+              "value": "New Year’s Day",
+              "synonyms": []
+            }
+          },
+          {
+            "id": "2",
+            "name": {
+              "value": "Good Friday",
+              "synonyms": []
+            }
+          },
+          {
+            "id": "3",
+            "name": {
+              "value": "Easter Sunday",
+              "synonyms": [
+                "Easter"
+              ]
+            }
+          },
+          {
+            "id": "4",
+            "name": {
+              "value": "Easter Monday",
+              "synonyms": []
+            }
+          },
+          {
+            "id": "5",
+            "name": {
+              "value": "Early May bank holiday",
+              "synonyms": [
+                "First May bank holiday",
+                "May bank holiday"
+              ]
+            }
+          },
+          {
+            "id": "6",
+            "name": {
+              "value": "Spring bank holiday",
+              "synonyms": [
+                "Last May bank holiday",
+                "Second May bank holiday"
+              ]
+            }
+          },
+          {
+            "id": "7",
+            "name": {
+              "value": "Summer bank holiday",
+              "synonyms": [
+                "August bank holiday"
+              ]
+            }
+          },
+          {
+            "id": "8",
+            "name": {
+              "value": "Christmas Day",
+              "synonyms": []
+            }
+          },
+          {
+            "id": "9",
+            "name": {
+              "value": "Boxing Day",
+              "synonyms": []
+            }
+          }
+        ]
+      }
+    ],
+    "intents": [
+      {
+        "name": "AMAZON.CancelIntent",
+        "samples": []
+      },
+      {
+        "name": "AMAZON.HelpIntent",
+        "samples": []
+      },
+      {
+        "name": "AMAZON.StopIntent",
+        "samples": []
+      },
+      {
+        "name": "nextBankHoliday",
+        "samples": [
+          "When is the next bank holiday",
+          "Is there a bank holiday soon"
+        ],
+        "slots": []
+      },
+      {
+        "name": "nextSpecificBankHoliday",
+        "samples": [
+          "When is {bankHoliday}",
+          "When is {bankHoliday} next",
+          "When is the next {bankHoliday}"
+        ],
+        "slots": [
+          {
+            "name": "bankHoliday",
+            "type": "BANK_HOLIDAY"
+          }
+        ]
+      },
+      {
+        "name": "specificBankHolidayForYear",
+        "samples": [
+          "When is {bankHoliday} {year}",
+          "When was {bankHoliday} {year}"
+        ],
+        "slots": [
+          {
+            "name": "bankHoliday",
+            "type": "BANK_HOLIDAY"
+          },
+          {
+            "name": "year",
+            "type": "AMAZON.DATE"
+          }
+        ]
+      },
+      {
+        "name": "specificBankHolidayOccurredThisYear",
+        "samples": [
+          "When was {bankHoliday}"
+        ],
+        "slots": [
+          {
+            "name": "bankHoliday",
+            "type": "BANK_HOLIDAY"
+          }
+        ]
+      }
+    ],
+    "invocationName": "bank holidays"
+  }
+}
