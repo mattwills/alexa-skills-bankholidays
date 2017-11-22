@@ -3,9 +3,9 @@ package uk.co.roycestonconsulting.alexa.skills.bankholidays.intent;
 import static java.time.LocalDate.now;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Matchers.any;
-import static uk.co.roycestonconsulting.alexa.skills.bankholidays.intent.BankHolidayIntent.SPECIFIC_BANK_HOLIDAY_FOR_YEAR_INTENT;
+import static uk.co.roycestonconsulting.alexa.skills.bankholidays.intent.BankHolidayIntent.NEXT_SPECIFIC_BANK_HOLIDAY_INTENT;
 import static uk.co.roycestonconsulting.alexa.skills.bankholidays.intent.BankHolidayName.CHRISTMAS_DAY;
 import static uk.co.roycestonconsulting.alexa.skills.bankholidays.testsupport.BankHolidayTestDataFactory.aBankHoliday;
 import static uk.co.roycestonconsulting.alexa.skills.bankholidays.testsupport.SpeechletRequestEnvelopeTestDataFactory.aSpeechletRequestEnvelope;
@@ -13,7 +13,6 @@ import static uk.co.roycestonconsulting.alexa.skills.bankholidays.testsupport.Sp
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Optional;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -28,12 +27,12 @@ import uk.co.roycestonconsulting.alexa.skills.bankholidays.model.BankHoliday;
 import uk.co.roycestonconsulting.alexa.skills.bankholidays.service.BankHolidayService;
 
 /**
- * Unit test for {@link SpecificBankHolidayIntentHandler}.
+ * Unit test for {@link NextSpecificBankHolidayIntentHandler}.
  */
 @RunWith(MockitoJUnitRunner.class)
-public class SpecificBankHolidayIntentHandlerTest {
+public class NextSpecificBankHolidayIntentHandlerTest {
 
-	private static final String INTENT_NAME = SPECIFIC_BANK_HOLIDAY_FOR_YEAR_INTENT.name();
+	private static final String INTENT_NAME = NEXT_SPECIFIC_BANK_HOLIDAY_INTENT.name();
 
 	private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-YYYY");
 
@@ -41,14 +40,13 @@ public class SpecificBankHolidayIntentHandlerTest {
 	private BankHolidayService bankHolidayService;
 
 	@InjectMocks
-	private SpecificBankHolidayIntentHandler handler;
+	private NextSpecificBankHolidayIntentHandler handler;
 
 	@Test
-	public void shouldHandleIntentGivenMatchingBankHoliday() {
+	public void shouldHandleIntent() {
 		// Given
 		String bankHolidayName = CHRISTMAS_DAY.getOfficialName();
-		int targetYear = now().plusYears(1).getYear();
-		LocalDate bankHolidayDate = now().withDayOfYear(25).withMonth(12).withYear(targetYear);
+		LocalDate bankHolidayDate = now().withDayOfYear(25).withMonth(12);
 		String expectedSsml = "<speak>" + bankHolidayName + " is <break time=\"50ms\"/>on: "
 				+ "<say-as interpret-as=\"date\" format=\"dmy\">" + bankHolidayDate.format(DATE_FORMATTER)
 				+ "</say-as></speak>";
@@ -56,7 +54,7 @@ public class SpecificBankHolidayIntentHandlerTest {
 		SpeechletRequestEnvelope<IntentRequest> requestEnvelope =
 				aSpeechletRequestEnvelope(INTENT_NAME, bankHolidayName, bankHolidayDate.getYear()).build();
 		BankHoliday bankHoliday = aBankHoliday(bankHolidayName, bankHolidayDate).build();
-		given(bankHolidayService.findBankHoliday(bankHolidayName, Optional.of(targetYear))).willReturn(Optional.of(bankHoliday));
+		given(bankHolidayService.getNextOccurenceOfBankHoliday(bankHolidayName)).willReturn(bankHoliday);
 
 		// When
 		SpeechletResponse speechletResponse = handler.handleIntent(requestEnvelope);
@@ -71,6 +69,7 @@ public class SpecificBankHolidayIntentHandlerTest {
 		// Given
 		String year = String.valueOf(now().getYear());
 		String expectedText = "Unable to find a bank holiday of that name, please try again";
+
 		SpeechletRequestEnvelope<IntentRequest> requestEnvelope = aSpeechletRequestEnvelopeWithoutBankHolidayNameSlot(INTENT_NAME, year).build();
 
 		// When
@@ -82,19 +81,22 @@ public class SpecificBankHolidayIntentHandlerTest {
 	}
 
 	@Test
-	public void shouldHandleIntentGivenBankHolidayNotFound() {
+	public void shouldFailToHandleIntentGivenBankHolidayNotFound() {
 		// Given
-		String year = String.valueOf(now().getYear());
-		String expectedText = "Unable to find a matching bank holiday, please try again";
+		String bankHolidayName = CHRISTMAS_DAY.getOfficialName();
 		SpeechletRequestEnvelope<IntentRequest> requestEnvelope = aSpeechletRequestEnvelope().build();
-		given(bankHolidayService.findBankHoliday(any(), any())).willReturn(Optional.empty());
+		given(bankHolidayService.getNextOccurenceOfBankHoliday(bankHolidayName)).willThrow(new IllegalStateException("Unable to find bank holiday"));
 
 		// When
-		SpeechletResponse speechletResponse = handler.handleIntent(requestEnvelope);
+		try {
+			handler.handleIntent(requestEnvelope);
+			fail("Expected IllegalStateException");
+		}
 
 		// Then
-		String actualText = ((PlainTextOutputSpeech) speechletResponse.getOutputSpeech()).getText();
-		assertThat(actualText, is(expectedText));
+		catch (IllegalStateException e) {
+			assertThat(e.getMessage(), is("Unable to find bank holiday"));
+		}
 	}
 
 }

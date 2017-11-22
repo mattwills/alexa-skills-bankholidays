@@ -5,73 +5,105 @@
         "name": "BANK_HOLIDAY",
         "values": [
           {
-            "id": "1",
+            "id": "NEW_YEARS_DAY",
             "name": {
               "value": "New Year’s Day",
               "synonyms": []
             }
           },
           {
-            "id": "2",
+            "id": "GOOD_FRIDAY",
             "name": {
               "value": "Good Friday",
               "synonyms": []
             }
           },
           {
-            "id": "3",
+            "id": "EASTER_SUNDAY",
             "name": {
               "value": "Easter Sunday",
-              "synonyms": [
-                "Easter"
-              ]
+              "synonyms": []
             }
           },
           {
-            "id": "4",
+            "id": "EASTER",
+            "name": {
+              "value": "Easter",
+              "synonyms": []
+            }
+          },
+          {
+            "id": "EASTER_MONDAY",
             "name": {
               "value": "Easter Monday",
               "synonyms": []
             }
           },
           {
-            "id": "5",
+            "id": "EARLY_MAY_BANK_HOLIDAY",
             "name": {
               "value": "Early May bank holiday",
-              "synonyms": [
-                "First May bank holiday",
-                "May bank holiday"
-              ]
+              "synonyms": []
             }
           },
           {
-            "id": "6",
+            "id": "FIRST_MAY_BANK_HOLIDAY",
+            "name": {
+              "value": "First May bank holiday",
+              "synonyms": []
+            }
+          },
+          {
+            "id": "MAY_BANK_HOLIDAY",
+            "name": {
+              "value": "May bank holiday",
+              "synonyms": []
+            }
+          },
+          {
+            "id": "SPRING_BANK_HOLIDAY",
             "name": {
               "value": "Spring bank holiday",
-              "synonyms": [
-                "Last May bank holiday",
-                "Second May bank holiday"
-              ]
+              "synonyms": []
             }
           },
           {
-            "id": "7",
+            "id": "LAST_MAY_BANK_HOLIDAY",
+            "name": {
+              "value": "Last May bank holiday",
+              "synonyms": []
+            }
+          },
+          {
+            "id": "SECOND_MAY_BANK_HOLIDAY",
+            "name": {
+              "value": "Second May bank holiday",
+              "synonyms": []
+            }
+          },
+          {
+            "id": "SUMMER_BANK_HOLIDAY",
             "name": {
               "value": "Summer bank holiday",
-              "synonyms": [
-                "August bank holiday"
-              ]
+              "synonyms": []
             }
           },
           {
-            "id": "8",
+            "id": "AUGUST_BANK_HOLIDAY",
+            "name": {
+              "value": "August bank holiday",
+              "synonyms": []
+            }
+          },
+          {
+            "id": "CHRISTMAS_DAY",
             "name": {
               "value": "Christmas Day",
               "synonyms": []
             }
           },
           {
-            "id": "9",
+            "id": "BOXING_DAY",
             "name": {
               "value": "Boxing Day",
               "synonyms": []

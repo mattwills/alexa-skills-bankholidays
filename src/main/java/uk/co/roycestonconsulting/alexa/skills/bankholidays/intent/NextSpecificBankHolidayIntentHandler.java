@@ -18,7 +18,7 @@ import uk.co.roycestonconsulting.alexa.skills.bankholidays.service.BankHolidaySe
  * {@link IntentHandler} for a looking up the next occurrence of a specific bank holiday. This includes Easter Sunday,
  * even though it's not a bank holiday, but there's a high chance people will ask something like "when's Easter next?".
  */
-public class NextSpecificBankHolidayIntentHandler extends AbstractIntentHandler {
+public class NextSpecificBankHolidayIntentHandler extends AbstractBankHolidayIntentHandler {
 
 	private static final Logger LOG = LoggerFactory.getLogger(NextSpecificBankHolidayIntentHandler.class);
 
@@ -31,18 +31,19 @@ public class NextSpecificBankHolidayIntentHandler extends AbstractIntentHandler 
 		Optional<Slot> bankHolidaySlot = getSlot(requestEnvelope, BANK_HOLIDAY_SLOT_NAME);
 		if (!bankHolidaySlot.isPresent()) {
 			LOG.debug("Cannot find bank holiday slot");
+			// TODO change to ask response
 			return tellResponse("Unable to find a bank holiday of that name, please try again");
 		}
-		String requestedBankHolidayName = bankHolidaySlot.get().getValue();
-		String bankHolidayName = getBankHolidayName(requestedBankHolidayName);
+		BankHolidayName requestedBankHolidayName = BankHolidayName.fromName(bankHolidaySlot.get().getValue());
+		String officialName = getOfficialName(requestedBankHolidayName);
 
-		BankHoliday bankHoliday = bankHolidayService.getNextOccurenceOfBankHoliday(bankHolidayName);
+		BankHoliday bankHoliday = bankHolidayService.getNextOccurenceOfBankHoliday(officialName);
 
-		String ssmlOutput = buildOutput(requestedBankHolidayName, bankHoliday);
+		String ssmlOutput = buildSpecificBankHolidayOutput(requestedBankHolidayName, bankHoliday);
 		LOG.debug("ssmlOutout={}", ssmlOutput);
 
 		SsmlOutputSpeech speech = new SsmlOutputSpeech();
-		speech.setSsml(ssmlOutput.toString());
+		speech.setSsml(ssmlOutput);
 		return newTellResponse(speech);
 	}
 

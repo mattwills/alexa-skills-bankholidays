@@ -14,6 +14,7 @@ import uk.co.roycestonconsulting.alexa.skills.bankholidays.model.BankHolidayEven
 public class JsonFileBankHolidayRepository implements BankHolidayRepository {
 
 	// File content from https://www.gov.uk/bank-holidays.json
+	// TODO - investigate dynamic loading options
 	private static final String JSON_FILE = "bank-holidays.json";
 
 	@Override

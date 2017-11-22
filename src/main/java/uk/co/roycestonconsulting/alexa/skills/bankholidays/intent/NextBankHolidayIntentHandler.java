@@ -15,7 +15,7 @@ import uk.co.roycestonconsulting.alexa.skills.bankholidays.service.BankHolidaySe
 /**
  * {@link IntentHandler} for the next bank holiday date.
  */
-public class NextBankHolidayIntentHandler extends AbstractIntentHandler {
+public class NextBankHolidayIntentHandler extends AbstractBankHolidayIntentHandler {
 
 	private static final Logger LOG = LoggerFactory.getLogger(NextBankHolidayIntentHandler.class);
 
@@ -36,7 +36,7 @@ public class NextBankHolidayIntentHandler extends AbstractIntentHandler {
 		LOG.debug("ssmlOutout={}", ssmlOutput);
 
 		SsmlOutputSpeech speech = new SsmlOutputSpeech();
-		speech.setSsml(ssmlOutput.toString());
+		speech.setSsml(ssmlOutput);
 
 		return newTellResponse(speech);
 	}

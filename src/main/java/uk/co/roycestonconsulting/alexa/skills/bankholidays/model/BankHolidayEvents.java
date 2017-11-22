@@ -1,26 +1,23 @@
 package uk.co.roycestonconsulting.alexa.skills.bankholidays.model;
 
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
+import lombok.Builder;
+import lombok.Value;
+
+@Value
+@Builder
 public class BankHolidayEvents {
 
-	private String division;
+	private final String division;
 
-	private List<BankHoliday> events;
+	private final List<BankHoliday> events;
 
-	public String getDivision() {
-		return division;
-	}
-
-	public void setDivision(String division) {
+	@JsonCreator
+	public BankHolidayEvents(@JsonProperty("division") String division, @JsonProperty("events") List<BankHoliday> events) {
 		this.division = division;
-	}
-
-	public List<BankHoliday> getEvents() {
-		return events;
-	}
-
-	public void setEvents(List<BankHoliday> events) {
 		this.events = events;
 	}
 }

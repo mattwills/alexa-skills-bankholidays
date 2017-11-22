@@ -22,7 +22,7 @@ public enum BankHolidayIntent {
 
 	private final IntentHandler intentHandler;
 
-	BankHolidayIntent(final String value, final IntentHandler intentHandler) {
+	BankHolidayIntent(String value, IntentHandler intentHandler) {
 		this.value = value;
 		this.intentHandler = intentHandler;
 	}
@@ -31,9 +31,9 @@ public enum BankHolidayIntent {
 		return intentHandler;
 	}
 
-	public static Optional<BankHolidayIntent> from(final String value) {
+	public static Optional<BankHolidayIntent> from(String value) {
 		return Stream.of(BankHolidayIntent.values())
-				.filter(diceRollerIntent -> diceRollerIntent.value.equals(value))
+				.filter(intent -> intent.value.equals(value))
 				.findFirst();
 	}
 }
