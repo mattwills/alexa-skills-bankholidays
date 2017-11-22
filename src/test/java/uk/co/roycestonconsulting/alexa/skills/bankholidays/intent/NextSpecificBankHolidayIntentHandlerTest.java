@@ -98,5 +98,4 @@ public class NextSpecificBankHolidayIntentHandlerTest {
 			assertThat(e.getMessage(), is("Unable to find bank holiday"));
 		}
 	}
-
 }

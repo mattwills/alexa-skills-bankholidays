@@ -150,7 +150,6 @@ public class BankHolidayServiceTest {
 		assertThat(bankHoliday.isPresent(), is(false));
 	}
 
-
 	private List<BankHoliday> bankHolidayEvents() {
 		return ImmutableList.of(
 				bankHoliday(CHRISTMAS_DAY, now().plusDays(1)),
