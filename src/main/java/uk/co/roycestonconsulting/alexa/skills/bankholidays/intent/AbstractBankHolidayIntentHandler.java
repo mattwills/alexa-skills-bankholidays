@@ -1,9 +1,11 @@
 package uk.co.roycestonconsulting.alexa.skills.bankholidays.intent;
 
+import static com.amazon.speech.speechlet.SpeechletResponse.newAskResponse;
 import static java.time.LocalDate.now;
 import static uk.co.roycestonconsulting.alexa.skills.bankholidays.intent.BankHolidayName.EASTER;
 import static uk.co.roycestonconsulting.alexa.skills.bankholidays.intent.BankHolidayName.EASTER_MONDAY;
 import static uk.co.roycestonconsulting.alexa.skills.bankholidays.intent.BankHolidayName.EASTER_SUNDAY;
+import static uk.co.roycestonconsulting.alexa.skills.common.ResponseFactory.whatNextReprompt;
 import static uk.co.roycestonconsulting.alexa.skills.common.SsmlOutputSpeechBuilder.aSsmlOutputSpeechBuilder;
 
 import java.time.format.DateTimeFormatter;
@@ -13,6 +15,8 @@ import org.slf4j.Logger;
 import com.amazon.speech.json.SpeechletRequestEnvelope;
 import com.amazon.speech.slu.Slot;
 import com.amazon.speech.speechlet.IntentRequest;
+import com.amazon.speech.speechlet.SpeechletResponse;
+import com.amazon.speech.ui.PlainTextOutputSpeech;
 import uk.co.roycestonconsulting.alexa.skills.bankholidays.model.BankHoliday;
 
 /**
@@ -98,6 +102,12 @@ public abstract class AbstractBankHolidayIntentHandler implements IntentHandler 
 	 */
 	protected Optional<Slot> getSlot(SpeechletRequestEnvelope<IntentRequest> requestEnvelope, String slotName) {
 		return Optional.ofNullable(requestEnvelope.getRequest().getIntent().getSlot(slotName));
+	}
+
+	protected SpeechletResponse unknownBankHolidayResponse() {
+		PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
+		speech.setText("Unable to find a bank holiday of that name, please try again");
+		return newAskResponse(speech, whatNextReprompt());
 	}
 
 	private boolean easterSundayRequested(BankHolidayName bankHolidayName) {

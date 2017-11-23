@@ -1,7 +1,6 @@
 package uk.co.roycestonconsulting.alexa.skills.bankholidays.intent;
 
 import static com.amazon.speech.speechlet.SpeechletResponse.newTellResponse;
-import static uk.co.roycestonconsulting.alexa.skills.common.ResponseFactory.tellResponse;
 
 import java.util.Optional;
 import org.slf4j.Logger;
@@ -31,15 +30,18 @@ public class NextSpecificBankHolidayIntentHandler extends AbstractBankHolidayInt
 		Optional<Slot> bankHolidaySlot = getSlot(requestEnvelope, BANK_HOLIDAY_SLOT_NAME);
 		if (!bankHolidaySlot.isPresent()) {
 			LOG.debug("Cannot find bank holiday slot");
-			// TODO change to ask response
-			return tellResponse("Unable to find a bank holiday of that name, please try again");
+			return unknownBankHolidayResponse();
 		}
-		BankHolidayName requestedBankHolidayName = BankHolidayName.fromName(bankHolidaySlot.get().getValue());
-		String officialName = getOfficialName(requestedBankHolidayName);
+		Optional<BankHolidayName> requestedBankHolidayName = BankHolidayName.fromName(bankHolidaySlot.get().getValue());
+		if (!requestedBankHolidayName.isPresent()) {
+			LOG.debug("Unrecognised bank holiday");
+			return unknownBankHolidayResponse();
+		}
 
+		String officialName = getOfficialName(requestedBankHolidayName.get());
 		BankHoliday bankHoliday = bankHolidayService.getNextOccurenceOfBankHoliday(officialName);
 
-		String ssmlOutput = buildSpecificBankHolidayOutput(requestedBankHolidayName, bankHoliday);
+		String ssmlOutput = buildSpecificBankHolidayOutput(requestedBankHolidayName.get(), bankHoliday);
 		LOG.debug("ssmlOutout={}", ssmlOutput);
 
 		SsmlOutputSpeech speech = new SsmlOutputSpeech();

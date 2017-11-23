@@ -2,6 +2,8 @@ package uk.co.roycestonconsulting.alexa.skills.bankholidays.intent;
 
 import static java.util.Arrays.stream;
 
+import java.util.Optional;
+
 /**
  * Represents a bank holiday's colloquial name and official name. Includes Easter Sunday, even though it's technically not a bank holiday.
  */
@@ -52,10 +54,11 @@ public enum BankHolidayName {
 	 * @param name The name of the bank holiday, which may not be the official name.
 	 * @return The matching {@link BankHolidayName}.
 	 */
-	public static BankHolidayName fromName(String name) {
-		return stream(values())
+	public static Optional<BankHolidayName> fromName(String name) {
+		return Optional.ofNullable(
+				stream(values())
 				.filter(bankHolidayName -> bankHolidayName.name.equalsIgnoreCase(name))
 				.findFirst()
-				.orElseThrow(() -> new IllegalArgumentException("Unable to find bank holiday: " + name));
+				.orElse(null));
 	}
 }
